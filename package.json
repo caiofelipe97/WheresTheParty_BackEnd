@@ -1,0 +1,25 @@
+{
+  "name": "wherestheparty_backend",
+  "version": "1.0.0",
+  "description": "Backend server to a web app. Wheres the party is app to sell party services in Campina Grande",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caiofelipe97/WheresTheParty_BackEnd.git"
+  },
+  "keywords": [
+    "wherestheparty"
+  ],
+  "author": "caio.melo@ccc.ufcg.edu.br",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caiofelipe97/WheresTheParty_BackEnd/issues"
+  },
+  "homepage": "https://github.com/caiofelipe97/WheresTheParty_BackEnd#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
