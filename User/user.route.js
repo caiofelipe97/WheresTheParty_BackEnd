@@ -1,0 +1,17 @@
+const express = require('express');
+const router = express.Router();
+var UserController = require('./user.controller');
+
+
+/* GET user perf. */
+router.get('/me', UserController.getUser);
+
+/* POST user */
+router.post('/', UserController.postUser);
+
+/* DELETE user by Id */
+router.delete('/:id', UserController.deleteUser);
+
+
+
+module.exports = router;
