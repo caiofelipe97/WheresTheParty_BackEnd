@@ -8,8 +8,19 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+var swagger = require('swagger-express');
 
-// faz um log das requisições
+app.use(swagger.init(app, {
+    apiVersion: '1.0',
+    swaggerVersion: '1.0',
+    swaggerURL: '/swagger',
+    swaggerJSON: '/api-docs.json',
+    swaggerUI: './public/swagger/',
+    basePath: 'http://localhost:3000',
+    apis: ['./User/user.controller']
+}));
+
+// faz um log das requisições'
 app.use(morgan('combined'));
 
 // faz o parse de requisições com o corpo do tipo application/x-www-form-urlencoded
