@@ -7,11 +7,9 @@ var UserController = require('./user.controller');
 router.get('/me', UserController.getUser);
 
 /* POST user */
-router.post('/', UserController.postUser);
+router.post('/', UserController.register);
 
-/* DELETE user by Id */
-router.delete('/:id', UserController.deleteUser);
-
-
+/* LOGIN user */
+router.post('/login', UserController.login);
 
 module.exports = router;

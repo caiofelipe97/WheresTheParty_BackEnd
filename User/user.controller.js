@@ -1,3 +1,8 @@
+const User = require('./user.model');
+const House = require('../House/house.model');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
 /**
  * @swagger
  * resourcePath: /user
@@ -6,81 +11,105 @@
 
  /**
  * @swagger
- * path: /login
+ * path: /me
  * operations:
- *   -  httpMethod: POST
- *      summary: Login with username and password
- *      notes: Returns a user based on username
+ *   -  httpMethod: GET
+ *      summary: Return user logged
  *      responseClass: User
- *      nickname: login
+ *      nickname: getUser
  *      consumes: 
  *        - text/html
- *      parameters:
- *        - name: username
- *          description: Your username
- *          paramType: query
- *          required: true
- *          dataType: string
- *        - name: password
- *          description: Your password
- *          paramType: query
- *          required: true
- *          dataType: string
  */
 exports.getUser = function (req, res) {
-    res.status(200).json({name: "User"});
+    const userId = req.userId;
+    User.findById(userId, function(err, user) {
+        if (err) {
+            return res.status(400).json({message:"Falha na operação", status:400});
+        } else {
+            if (user == null) {
+                return res.status(404).json({message:"Usuário não encontrado", status: 404});
+            } else {
+                return res.status(200).json(user);
+            }
+
+        }
+    });
 };
 
 /**
  * @swagger
- * path: /login
+ * path: /
  * operations:
  *   -  httpMethod: POST
- *      summary: Login with username and password
- *      notes: Returns a user based on username
+ *      summary: Register 
+ *      notes: Returns a user registered
+ *      responseClass: User
+ *      nickname: register
+ *      consumes: 
+ *        - text/html
+ *      parameters:
+ *        - name: user
+ *          description: User object
+ *          paramType: query
+ *          required: true
+ *          dataType: User
+ */
+exports.register = async function (req, res) {
+    let newUser = new User(req.body);
+    let newHouse = new House(req.body.house);
+    houseSaved = await newHouse.save();
+    newUser.house = houseSaved;
+    userSaved = await newUser.save();
+    res.status(200).json({message: "Registro realizado com sucesso"})
+};
+
+/**
+ * @swagger
+ * path: /
+ * operations:
+ *   -  httpMethod: POST
+ *      summary: Login 
+ *      notes: Returns a data with token and username
  *      responseClass: User
  *      nickname: login
  *      consumes: 
  *        - text/html
  *      parameters:
- *        - name: username
- *          description: Your username
+ *        - name: email
+ *          description: User email
  *          paramType: query
  *          required: true
- *          dataType: string
+ *          dataType: String
  *        - name: password
- *          description: Your password
+ *          description: User password
  *          paramType: query
  *          required: true
- *          dataType: string
+ *          dataType: String
  */
-exports.postUser = function (req, res) {
-    res.status(200).json({name: "User"});
-};
-
-/**
- * @swagger
- * path: /login
- * operations:
- *   -  httpMethod: POST
- *      summary: Login with username and password
- *      notes: Returns a user based on username
- *      responseClass: User
- *      nickname: login
- *      consumes: 
- *        - text/html
- *      parameters:
- *        - name: username
- *          description: Your username
- *          paramType: query
- *          required: true
- *          dataType: string
- *        - name: password
- *          description: Your password
- *          paramType: query
- *          required: true
- *          dataType: string
- */
-exports.deleteUser = function (req, res) {
-    res.status(200).json({name: "User"});
-};
+exports.login = async function(req,res){
+    User.findOne({'email': req.body.email}).select("+password").then((user) => {
+        if(!user){
+            return res.status(404).json( {
+                data: {
+                    message: 'Email não registrado'
+                }
+            })
+        } if(!bcrypt.compareSync(req.body.password, user.password)) {
+            return res.status(400).json( {
+                data: {
+                    message: 'Email ou senha incorreta'
+                }
+            })
+        } else {
+            let token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: 86400});
+            let data = {
+                message: 'User althentication Sucessfull',
+                token: token,
+                id: user._id
+            };
+            return res.status(200).json(data);
+        }
+    }).catch(function (e) {
+        callback({result: e.message, status: 500});
+    })
+}

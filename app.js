@@ -17,7 +17,7 @@ app.use(swagger.init(app, {
     swaggerJSON: '/api-docs.json',
     swaggerUI: './public/swagger/',
     basePath: 'http://localhost:3000',
-    apis: ['./User/user.controller']
+    apis: ['./User/user.controller.js']
 }));
 
 // faz um log das requisições'
