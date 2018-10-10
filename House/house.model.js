@@ -15,12 +15,7 @@ var houseSchema = new mongoose.Schema({
     imageUrl: {
         type:String,
         required: true
-    },
-
-    shows: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: '../Party/party.model'
-    }]
+    }
 });
 
 module.exports = mongoose.model('House', houseSchema);

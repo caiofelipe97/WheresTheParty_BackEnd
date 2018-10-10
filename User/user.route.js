@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-var UserController = require('./user.controller');
+let UserController = require('./user.controller');
 
 
 /* GET user perf. */

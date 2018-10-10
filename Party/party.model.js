@@ -25,6 +25,12 @@ var partySchema = new mongoose.Schema({
     hour:{
         type: String,
         required: true
+    },
+
+    house:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: '../House/house.model',
+        required: true
     }
 
 });

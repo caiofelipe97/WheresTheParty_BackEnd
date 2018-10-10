@@ -24,10 +24,10 @@ exports.getUser = function (req, res) {
     const userId = req.userId;
     User.findById(userId, function(err, user) {
         if (err) {
-            return res.status(400).json({message:"Falha na operação", status:400});
+            return res.status(400).json({message:"Falha na operação"});
         } else {
             if (user == null) {
-                return res.status(404).json({message:"Usuário não encontrado", status: 404});
+                return res.status(404).json({message:"Usuário não encontrado"});
             } else {
                 return res.status(200).json(user);
             }
@@ -59,8 +59,14 @@ exports.register = async function (req, res) {
     let newHouse = new House(req.body.house);
     houseSaved = await newHouse.save();
     newUser.house = houseSaved;
-    userSaved = await newUser.save();
-    res.status(200).json({message: "Registro realizado com sucesso"})
+    newUser.save().then((user)=>{
+        if(!user){
+            res.status(400).json({message: "Erro"})
+        }else{
+            res.status(200).json({message: "Registro realizado com sucesso"})
+
+        }
+    })
 };
 
 /**
@@ -101,9 +107,9 @@ exports.login = async function(req,res){
                 }
             })
         } else {
-            let token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: 86400});
+            let token = jwt.sign({id: user._id, house: user.house}, process.env.JWT_SECRET_KEY, {expiresIn: 86400});
             let data = {
-                message: 'User althentication Sucessfull',
+                message: 'Usuário autenticado com sucesso',
                 token: token,
                 id: user._id
             };
