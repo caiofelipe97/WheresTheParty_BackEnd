@@ -11,7 +11,13 @@ var houseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
+    address:{
+        type: String,
+        required: true
+    },
+    contact:{
+        type: String
+    },
     imageUrl: {
         type:String,
         required: true

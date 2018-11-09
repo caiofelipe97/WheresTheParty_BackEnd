@@ -11,7 +11,7 @@ exports.getAll =  function (req, res) {
 };
 
 exports.getUserHouse = function(req,res){
-    House.findById(req.houseId),function(error, house){
+    House.findById((req.houseId),function(error, house){
         if(error){
             return res.status(400).json({message:"Falha na operação"});
         }else{
@@ -21,7 +21,26 @@ exports.getUserHouse = function(req,res){
                 return res.status(200).json({data:house, message:"Operação realizada com sucesso"})
             }
         }
-    }
+    })
+}
+
+exports.getHouseById = function(req,res){
+    console.log("Chamou geral")
+
+    House.findById((req.params.houseId),function(error, house){
+        if(error){
+            console.log("error")
+            return res.status(400).json({message:"Falha na operação"});
+        }else{
+            if(!house){
+                console.log("error 2")
+                return res.status(404).json({message:"Casa de show não cadastrada"})
+            }else{
+                console.log("deu bom")
+                return res.status(200).json({data:house, message:"Operação realizada com sucesso"})
+            }
+        }
+    })
 }
 
 exports.updateHouse = function(req,res){

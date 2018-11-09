@@ -9,6 +9,8 @@ router.get('/', HouseController.getAll);
 /*GET user logged House*/
 router.get('/myHouse', tokenValidator, HouseController.getUserHouse);
 
+router.get('/:houseId', HouseController.getHouseById);
+
 /*PUT user logged House*/
 router.put('/', tokenValidator, HouseController.updateHouse);
 

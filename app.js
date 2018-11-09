@@ -5,10 +5,14 @@ const path = require('path');
 const public = path.join(__dirname, 'static');
 const index = require('./routes/index.route');
 const app = express();
+const cors = require('cors')
+const PORT = process.env.PORT || 8080;
+const mongoose = require('mongoose');
 
-const PORT = process.env.PORT || 3000;
+const swagger = require('swagger-express');
 
-var swagger = require('swagger-express');
+//Permitir requisições
+app.use(cors());
 
 app.use(swagger.init(app, {
     apiVersion: '1.0',
@@ -41,6 +45,7 @@ app.use(function (req, res, next) {
 //Middleware para as rotas
 app.use('/', index);
 
+mongoose.connect('mongodb://localhost/wheresTheParty');
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
 

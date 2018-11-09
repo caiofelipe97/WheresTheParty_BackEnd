@@ -32,7 +32,6 @@ var partySchema = new mongoose.Schema({
         ref: '../House/house.model',
         required: true
     }
-
 });
 
 module.exports = mongoose.model('Party', partySchema);

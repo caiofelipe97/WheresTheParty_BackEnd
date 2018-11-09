@@ -6,11 +6,14 @@ let PartyController = require("./party.controller");
 /* GET all party */
 router.get('/', PartyController.getAll);
 
+/* GET user logged house parties */
+router.get('/myParty', tokenValidator, PartyController.getMyHouseShows);
+
 /* GET house parties */
-router.get('/myParty', tokenValidator, PartyController.getHouseShows);
+router.get('/:houseId', PartyController.getHouseShows)
 
 /* POST house party */
-router.post('/:houseId',tokenValidator, PartyController.createHouseParty);
+router.post('/:houseId', PartyController.createHouseParty);
 
 
 module.exports = router;

@@ -21,10 +21,12 @@
   "homepage": "https://github.com/caiofelipe97/WheresTheParty_BackEnd#readme",
   "dependencies": {
     "bcrypt": "^3.0.0",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.2.15",
     "morgan": "^1.9.1",
+    "react-router-dom": "^4.3.1",
     "swagger-express": "^1.0.5"
   },
   "devDependencies": {
