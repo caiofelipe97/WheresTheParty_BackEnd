@@ -4,6 +4,7 @@
   "description": "Backend server to a web app. Wheres the party is app to sell party services in Campina Grande",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
