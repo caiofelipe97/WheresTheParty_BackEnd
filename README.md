@@ -3,5 +3,6 @@ Aplicação Web que disponibilizará aos usuários as festas que ocorrerão em s
 
 # Para iniciar a aplicação:
 1. Importar o Banco de dados: 'mongorestore --db wheresTheParty dump/wheresTheParty'
-2. 'npm install'
-3. 'npm start'
+2. Criar um arquivo .env na pasta principal como a variável JWT_SECRET_KEY
+3. 'npm install'
+4. 'npm start'
