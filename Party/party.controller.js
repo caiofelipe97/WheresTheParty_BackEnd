@@ -34,7 +34,9 @@ exports.getHouseShows = function(req,res){
 }
 
 exports.createHouseParty = function(req,res){
+    console.log("criando nova festa");
     let newParty = new Party(req.body);
+    newParty.house = req.houseId;
     newParty.save().then((party)=>{
         if(!party){
             res.status(400).json({message: "Erro"})

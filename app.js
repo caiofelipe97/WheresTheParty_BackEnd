@@ -6,6 +6,7 @@ const public = path.join(__dirname, 'static');
 const index = require('./routes/index.route');
 const app = express();
 const cors = require('cors')
+require('dotenv').config();
 const PORT = process.env.PORT || 8080;
 const mongoose = require('mongoose');
 

@@ -23,8 +23,7 @@ var partySchema = new mongoose.Schema({
     },
 
     hour:{
-        type: String,
-        required: true
+        type: String
     },
 
     house:{

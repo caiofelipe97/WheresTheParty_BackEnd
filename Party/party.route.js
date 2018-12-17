@@ -13,7 +13,7 @@ router.get('/myParty', tokenValidator, PartyController.getMyHouseShows);
 router.get('/:houseId', PartyController.getHouseShows)
 
 /* POST house party */
-router.post('/:houseId', PartyController.createHouseParty);
+router.post('/', tokenValidator, PartyController.createHouseParty);
 
 
 module.exports = router;
